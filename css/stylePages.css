@@ -1,0 +1,54 @@
+
+.header {
+    background-color: #CCD7FF;
+    height: 130px;
+}
+
+.menu_admin {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.profil {
+    width: 100px;
+    height: 100px;
+}
+
+.infos {
+    display: flex;
+}
+
+.infos p {
+    margin-left: 5px;
+    margin-top: 0px;
+}
+
+.nom {
+    margin: 30px;
+}
+
+.end {
+    display: flex;
+    gap: 5px;
+    margin-top: 30px;
+}
+
+.table {
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.line{
+    color: #fff;
+}
+
+.text-center {
+    color: black;
+}
+
+.d-flex {
+    margin-right: 9%;
+}
