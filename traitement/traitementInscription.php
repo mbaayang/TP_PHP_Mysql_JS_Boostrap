@@ -12,50 +12,31 @@
         $roles = htmlspecialchars($_POST['rôle']);
         $passwords = htmlspecialchars($_POST['passwords']);
         $password_retype = htmlspecialchars($_POST['password_retype']);
-        $photo = file_get_contents($_FILES['photo']['tmp_name']) ?? null;
-        $max_size = 1000000;
-        if ($_FILES['photo']['size'] > $max_size) {
-            header('Location: ../login/inscription.php?reg_err=photo');
-                die();
-        }
-/*         if ($_FILES['photo']['error'] !== 0) {
-            header('Location: ../login/inscription.php?reg_err=erreur');
-                die();
-        }
-        if (!in_array($_FILES['photo']['type'], ['image/png', 'image/jpg', 'image/jpeg'])) {
-            header('Location: ../login/inscription.php?reg_err=type');
-                die();
-        } */
 
-       /*  if (!empty($_FILES['photo'])) {
-            $nameFile = $_FILES['photo']['name'];
+        if (!empty($_FILES['photo'])) {
+            $photo = file_get_contents($_FILES['photo']['tmp_name']) ?? null;
             $typeFile = $_FILES['photo']['type'];
-            $sizeFile = $_FILES['photo']['size'];
-            $tmpFile = $_FILES['photo']['tmp_name'];
-            $errFile = $_FILES['photo']['error'];
-
-            $extensions = ['png', 'jpg', 'jpeg'];
-            $type = ['photo/png', 'photo/jpg', 'photo/jpeg'];
-
+            $type = ['image/png', 'image/jpg', 'image/jpeg', ''];
+            $nameFile = $_FILES['photo']['name'];
+            $extensions = ['PNG', 'JPG', 'JPEG'];
             $extension = explode('.', $nameFile);
 
-            $max_size = 100000;
-
-            if (in_array($typeFile, $type)) {
-                if (count($extension) <= 2 && in_array(strtolower(end($extension)), $extensions)) {
-                    if ($sizeFile <= $max_size && $errFile == 0) {
-                        move_uploaded_file($tmpFile, '../images' . uniqid() . '.' . strtolower(end($extension)));
-                    }else{
-                        echo "Erreur";
-                    }
-                }else{
-                    echo "Merci de mettre une image";
-                }
-            }else{
-                echo"Type non autorisé";
+            $max_size = 1000000;
+            if ($_FILES['photo']['size'] > $max_size) {
+                header('Location: ../login/inscription.php?reg_err=photo');
+                die();
             }
-        }  
- */
+            if (!in_array($typeFile, $type)) {
+                header('Location: ../login/inscription.php?reg_err=type');
+                die();
+            }
+            if (count($extension) >= 2 && in_array(strtolower(end($extension)), $extensions)) {
+                header('Location: ../login/inscription.php?reg_err=erreur');
+                die();
+            }
+        }
+        
+
         $mat;     
         $res = $bdd->query("SELECT matricule from User");
         if($res->rowCount()>0){

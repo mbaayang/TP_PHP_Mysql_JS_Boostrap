@@ -116,44 +116,6 @@ if (isset($_POST) & !empty($_POST)) {
 		
 	</div>
 
-	<style>
-        .header {
-            background-color: #CCD7FF;
-        }
-
-        .menu_admin {
-            display: flex;
-            justify-content: space-between;
-            margin-left: 5%;
-            margin-right: 5%;
-        }
-
-        .profil {
-            width: 100px;
-            height: 100px;
-            background-color: grey;
-            border-radius: 50px;
-        }
-
-        .infos {
-            display: flex;
-        }
-
-        .infos p {
-            margin-left: 5px;
-            margin-top: 0px;
-        }
-
-        .nom {
-            margin: 30px;
-        }
-
-        .end {
-            margin-top: 30px;
-        }
-    </style>
-
-
 	<script src="../js/scripts.js"></script>
 </body>
 </html>

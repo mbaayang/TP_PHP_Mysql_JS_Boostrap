@@ -39,7 +39,7 @@
                         case 'type':
                             ?>
                                 <div class="alert alert-danger">
-                                    <strong>Erreur</strong> type non pris en charge
+                                    <strong>Erreur</strong> Merci de mettre une image
                                 </div>
                             <?php
                             break;
@@ -47,7 +47,7 @@
                         case 'erreur':
                             ?>
                                 <div class="alert alert-danger">
-                                    <strong>Erreur</strong> de chargement
+                                    <strong>Erreur</strong> type fichier non pris en charge
                                 </div>
                             <?php
                             break;

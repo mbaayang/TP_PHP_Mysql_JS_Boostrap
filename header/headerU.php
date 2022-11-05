@@ -8,7 +8,7 @@
                 <p><?php echo $data['matricule']; ?></p>
             </div>
             <div class="nom">
-                <h2><?php echo $data['prenom']; ?> <?php echo $data['nom']; ?></h2>
+                <h3><?php echo $data['prenom']; ?> <?php echo $data['nom']; ?></h3>
                 <p><?php echo $data['rôle']; ?></p>
             </div>
         </div>

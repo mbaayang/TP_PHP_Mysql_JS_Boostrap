@@ -13,6 +13,7 @@ if (!isset($_SESSION['user'])) {
 $req = $bdd->prepare('SELECT * FROM User WHERE matricule = ?');
 $req->execute(array($_SESSION['user']));
 $data = $req->fetch();
+
 ?>
 
 <!DOCTYPE html>
@@ -44,19 +45,23 @@ $data = $req->fetch();
 
                 switch ($err) {
                     case 'success':
-            ?>
+                    ?>
                         <div class="alert alert-success my-3">
                             <strong>Succès</strong> Modification réussie !
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-            <?php
+                    <?php
+                        break;
+
+                    case 'archive_success':
+                        echo "<div class='alert alert-success'>Archiver avec succès ! </div>";                    
                         break;
                 }
             }
             ?>
         </div>
         <form action="" class="d-flex ml-auto col-4 my-4" role="search" method="GET">
-            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" name="cherche">
+            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" name="cherche" value="<?php if(isset($_GET['cherche'])){echo $_GET['cherche'];}?>">
             <button class="btn btn-outline-dark" type="submit" name="recherche">Rechercher</button>
         </form>
         <table class="table table-hover my-3">
@@ -91,25 +96,66 @@ $data = $req->fetch();
                 //Calcul du premier user de la page
                 $premier = ($currentPage * $parPage) - $parPage;
 
-                $lister = $bdd->prepare("SELECT * FROM User WHERE etat=1 ORDER BY id DESC LIMIT $premier, $parPage;");
+                $id=$data['id'];
+
+                $lister = $bdd->prepare("SELECT * FROM User WHERE etat=1 AND id!=$id ORDER BY id DESC LIMIT $premier, $parPage;");
                 $lister->execute();
 
-                if (isset($_GET['recherche'])) {
-                    if (isset($_GET['cherche'])) {
 
-                        $cherche = ($_GET['cherche']);
-                        if (!empty($cherche)) {
-                            $sql = "SELECT * FROM User WHERE etat=1 AND nom LIKE '%$cherche%' OR prenom LIKE '%$cherche'%'";
+                if (isset($_GET['cherche'])) {
+                    $values = $_GET['cherche'];
+                    $lister = $bdd->prepare("SELECT * FROM User WHERE CONCAT(prenom,nom,email) LIKE '%$values%'");
+                    $lister->execute();
 
-                            $resultat = $bdd->query($sql);
+                    if ($lister->rowCount() > 0) {
+
+                        if (isset($_SESSION['user'])) {
+                            $matSession = $_SESSION['user'];
+                        } 
+                        while ($row = $lister->fetch(PDO::FETCH_ASSOC)) {
+                            $prenom = $row['prenom'];
+                            $nom = $row['nom'];
+                            $email = $row['email'];
+                            $mat = $row['matricule'];
+                            $role = $row['rôle'];
+                            $etat = $row['etat'];
+                            $id = $row['id'];
+    
+    
+                            if ($mat != $matSession) {
+                                echo '<tr>
+                                <td>' . $prenom . '</td>
+                                <td>' . $nom . '</td>
+                                <td>' . $email . '</td>
+                                <td>' . $mat . '</td>
+                                <td>' . $role . '</td>
+                                <td style="display:flex;">
+                            
+                                    <a href=" ../actions/archiver.php?deleteid=' . $id . '" onclick="return confirm(\'Voulez vous vraiment archiver ?\')" class="ml-3 text-center">
+                                        <i class="fa-solid fa-download"></i>
+                                        <p style="font-size: 12px">Archiver</p>                               
+                                    </a>
+                                    <a href="../actions/modifier.php?id=' . $id . '" class="ml-3 text-center">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <p style="font-size: 12px">Modifier</p>                               
+                                    </a>
+                                    <a href="../actions/change_role.php?switchid=' . $id . '" class="ml-3 text-center">
+                                        <i class="fa-solid fa-user-pen"></i>
+                                        <p style="font-size: 12px">Changer rôle</p>                                
+                                    </a>
+                                </td>
+                                </tr>';
+                            }
                         }
+                    
                     }
-                }
-                if ($lister->rowCount() > 0) {
+                }else{
+
+              if ($lister->rowCount() > 0) {
 
                     if (isset($_SESSION['user'])) {
                         $matSession = $_SESSION['user'];
-                    }
+                    } 
                     while ($row = $lister->fetch(PDO::FETCH_ASSOC)) {
                         $prenom = $row['prenom'];
                         $nom = $row['nom'];
@@ -146,21 +192,23 @@ $data = $req->fetch();
                         }
                     }
                 }
-
+            }
                 ?>
             </tbody>
         </table>
         <!-- -------------Pagination----------------- -->
         <nav aria-label="Page navigation example">
             <ul class="pagination fixed-bottom justify-content-center">
-                <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>"><a class="page-link" href="?page=<?= $currentPage - 1 ?>">Precedent</a></li>
+                <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                <a class="page-link" href="?page=<?= $currentPage - 1 ?>">Precedent</a></li>
                 <?php
                 for ($page = 1; $page <= $pages; $page++) : ?>
                     <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
                         <a class="page-link" href="?page=<?= $page ?>"><?= $page ?></a>
                     </li>
                 <?php endfor ?>
-                <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>"><a class="page-link" href="?page=<?= $currentPage + 1 ?>">Suivant</a></li>
+                <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                <a class="page-link" href="?page=<?= $currentPage + 1 ?>">Suivant</a></li>
             </ul>
         </nav>
     </main>
