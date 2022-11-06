@@ -122,7 +122,7 @@ $data = $req->fetch();
                             $id = $row['id'];
     
     
-                            if ($mat != $matSession) {
+                            if ($etat == 1 && $mat != $matSession) {
                                 echo '<tr>
                                 <td>' . $prenom . '</td>
                                 <td>' . $nom . '</td>

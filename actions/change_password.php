@@ -80,7 +80,7 @@ $data = $req->fetch();
                 <input type="password" name="new_password" class="form-control" autocomplete="off">
             </div>
             <div class="form-group inputs">
-                <label for="new_password_retype">Re tapez le nouveau mot de passe</label>
+                <label for="new_password_retype">Re-tapez le nouveau mot de passe</label>
                 <input type="password" name="new_password_retype" class="form-control" autocomplete="off">
             </div>
             <div class="form-group">

@@ -43,35 +43,17 @@ if (isset($_POST) & !empty($_POST)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/stylePages.css">
+    <link rel="stylesheet" href="../css/styleForm.css">
 	<script src="https://kit.fontawesome.com/431fa92df2.js" crossorigin="anonymous"></script>
     <title>Modifier</title>
 </head>
 
 <body>
-
-	<header class="header">
-        <div class="menu_admin">
-            <div class="infos">
-                <div>
-                    <div class="profil">
-                        <img src="" alt="">
-                    </div>
-                    <p><?php echo $data['matricule']; ?></p>
-                </div>
-                <div class="nom">
-                    <h2><?php echo $data['prenom']; ?> <?php echo $data['nom']; ?></h2>
-                    <p><?php echo $data['rôle']; ?></p>
-                </div>
-            </div>
-            <div class="end">
-                <a class="btn btn-primary my-2" href="../pages/pageAdmin.php" role="button">User</a>
-                <a class="btn btn-primary my-2" href="../pages/listeArchive.php" role="button">Archivé(é)s</a>
-                <a class="btn btn-outline-danger my-2" href="../actions/deconnexion.php" role="button">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </a>
-            </div>
-        </div>
+    <header class="header">
+        <?php
+        include('../header/header.php');
+        ?>
     </header>
 
 	<div class="container my-3 w-50 bg-light" style="box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);">

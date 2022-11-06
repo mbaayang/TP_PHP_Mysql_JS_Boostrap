@@ -39,9 +39,9 @@ $data = $req->fetch();
         ?>
     </header>
     <main>
-        <form class="d-flex ml-auto col-4 my-4" role="search">
-            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
-            <button class="btn btn-outline-dark" type="submit">Rechercher</button>
+        <form action="" class="d-flex ml-auto col-4 my-4" role="search" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" name="cherche" value="<?php if(isset($_GET['cherche'])){echo $_GET['cherche'];}?>">
+            <button class="btn btn-outline-dark" type="submit" name="recherche">Rechercher</button>
         </form>
         <table class="table table-hover my-3">
             <thead>
@@ -74,29 +74,66 @@ $data = $req->fetch();
                 //Calcul du premier user de la page
                 $premier = ($currentPage * $parPage) - $parPage;
 
-                $lister = $bdd->prepare("SELECT * FROM User WHERE etat=0 ORDER BY id DESC LIMIT $premier, $parPage;");
+                $id=$data['id'];
+
+                $lister = $bdd->prepare("SELECT * FROM User WHERE etat=0 AND id!=$id ORDER BY id DESC LIMIT $premier, $parPage;");
                 $lister->execute();
 
-                if (isset($_SESSION['user'])) {
-                    $matSession = $_SESSION['user'];
-                }
-                while ($row = $lister->fetch(PDO::FETCH_ASSOC)) {
-                    $prenom = $row['prenom'];
-                    $nom = $row['nom'];
-                    $email = $row['email'];
-                    $mat = $row['matricule'];
-                    $dateArchivage = $row['date_archivage'];
-                    $etat = $row['etat'];
-                    $id = $row['id'];
+                if (isset($_GET['cherche'])) {
+                    $values = $_GET['cherche'];
+                    $lister = $bdd->prepare("SELECT * FROM User WHERE CONCAT(prenom,nom,email) LIKE '%$values%'");
+                    $lister->execute();
 
-                    if ($etat == 0 && $mat != $matSession) {
-                        echo '<tr>
-                        <td>' . $prenom . '</td>
-                        <td>' . $nom . '</td>
-                        <td>' . $email . '</td>
-                        <td>' . $mat . '</td>
-                        <td>' . $dateArchivage . '</td>
-                        </tr>';
+                    if ($lister->rowCount() > 0) {
+
+                        if (isset($_SESSION['user'])) {
+                            $matSession = $_SESSION['user'];
+                        } 
+                        while ($row = $lister->fetch(PDO::FETCH_ASSOC)) {
+                            $prenom = $row['prenom'];
+                            $nom = $row['nom'];
+                            $email = $row['email'];
+                            $mat = $row['matricule'];
+                            $date_inscription = $row['date_inscription'];
+                            $etat = $row['etat'];
+                            $id = $row['id'];
+    
+    
+                            if ($etat == 0 && $mat != $matSession) {
+                                echo '<tr>
+                                <td>' . $prenom . '</td>
+                                <td>' . $nom . '</td>
+                                <td>' . $email . '</td>
+                                <td>' . $mat . '</td>
+                                <td>' . $date_inscription . '</td>
+                                </tr>';
+                            }
+                        }
+                    
+                    }
+                }else{
+
+                    if (isset($_SESSION['user'])) {
+                        $matSession = $_SESSION['user'];
+                    }
+                    while ($row = $lister->fetch(PDO::FETCH_ASSOC)) {
+                        $prenom = $row['prenom'];
+                        $nom = $row['nom'];
+                        $email = $row['email'];
+                        $mat = $row['matricule'];
+                        $dateArchivage = $row['date_archivage'];
+                        $etat = $row['etat'];
+                        $id = $row['id'];
+
+                        if ($mat != $matSession) {
+                            echo '<tr>
+                            <td>' . $prenom . '</td>
+                            <td>' . $nom . '</td>
+                            <td>' . $email . '</td>
+                            <td>' . $mat . '</td>
+                            <td>' . $dateArchivage . '</td>
+                            </tr>';
+                        }
                     }
                 }
                 ?>

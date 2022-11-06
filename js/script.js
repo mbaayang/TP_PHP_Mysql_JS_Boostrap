@@ -48,7 +48,7 @@ const validateInputs1 = () =>{
 /* -------------------------Formulaire d'inscription---------------------- */
 
 
-    document.getElementById("connexion").addEventListener("submit", function(e){
+document.getElementById("connexion").addEventListener("submit", function(e){
     var error1, error2;
     var email = document.getElementById("email");
     var password = document.getElementById("mdp");

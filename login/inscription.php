@@ -9,13 +9,6 @@
     <link rel="stylesheet" href="../css/styleForm.css">
     <title>Inscription</title>
 </head>
-<style>
-    .en-tête img{
-        width: 100%;
-        height: 250px;
-        opacity: 0.6;
-    }
-</style>
 <body>
     <div class="en-tête">
     <img src="../images/img.jpeg" alt="">
