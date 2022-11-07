@@ -39,11 +39,29 @@ $data = $req->fetch();
         ?>
     </header>
     <main>
-        <form action="" class="d-flex ml-auto col-4 my-4" role="search" method="GET">
+    <div class="col-md-4 text-center">
+            <?php
+            if (isset($_GET['reg_err'])) {
+                $err = htmlspecialchars($_GET['reg_err']);
+
+                switch ($err) {
+                    case 'desarchive_success':
+                    ?>
+                        <div class="alert alert-success position-fixed bottom-0" style="position: absolute;">
+                            <strong>Succès</strong> Désarchiver avec succès!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php             
+                        break;
+                }
+            }
+            ?>
+        </div>
+        <form action="" class="d-flex ml-auto col-4 my-2" role="search" method="GET">
             <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" name="cherche" value="<?php if(isset($_GET['cherche'])){echo $_GET['cherche'];}?>">
             <button class="btn btn-outline-dark" type="submit" name="recherche">Rechercher</button>
         </form>
-        <table class="table table-hover my-3">
+        <table class="table table-hover my-2">
             <thead>
                 <tr class="bg-dark line">
                     <th scope="col">Prenom</th>
@@ -69,7 +87,7 @@ $data = $req->fetch();
                 $result = $lister->fetch();
                 $nbUser = (int) $result['nb_user'];
                 //On determine le nombre d'user par page
-                $parPage = 4;
+                $parPage = 5;
                 //On calcule le nombre de pages total
                 $pages = ceil($nbUser / $parPage);
                 //Calcul du premier user de la page

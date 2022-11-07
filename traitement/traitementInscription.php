@@ -78,24 +78,7 @@
                 $insert->bindParam(6, $passwords);
                 $insert->bindParam(7, $mat);
                 $insert->execute();
-
-               /*  $insert=$bdd->prepare("INSERT INTO User(nom,prenom,email,rôle,photo,passwords,matricule) 
-                VALUES ('$nom','$prenom','$email','$roles','$photo','$passwords','$mat')");
-                $insert->execute();  */
-
-                /* $insert = $bdd->prepare('INSERT INTO User(nom, prenom, email, rôle, photo, passwords, matricule) 
-                    VALUES(:nom, :prenom, :email, :rôle, :photo, :passwords, :matricule)');
-                            $insert->execute(array(
-                                'nom' => $nom,
-                                'prenom' => $prenom,
-                                'email' => $email,
-                                'rôle' => $roles,
-                                'photo' => $photo,
-                                'passwords' => $password,
-                                'matricule' => $mat
-                            )); */
-                                
-                
+                                   
                 // On redirige avec le message de succès
                 header('Location:../login/inscription.php?reg_err=success');
                 die();
