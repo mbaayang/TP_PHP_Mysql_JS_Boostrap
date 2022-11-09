@@ -40,7 +40,7 @@
                 case 'compte':
                     ?>
                         <div class="alert alert-danger">
-                            <strong>Erreur</strong> Ce compte n'existe plus
+                            <strong>Erreur</strong> Votre compte n'existe plus
                         </div>
                     <?php
                         break;
