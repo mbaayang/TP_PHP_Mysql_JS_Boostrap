@@ -57,17 +57,17 @@ $data = $req->fetch();
             }
             ?>
         </div>
-        <form action="" class="d-flex ml-auto col-4 my-2" role="search" method="GET">
+        <form action="" class="d-flex ml-auto col-4 my-4" role="search" method="GET">
             <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" name="cherche" value="<?php if(isset($_GET['cherche'])){echo $_GET['cherche'];}?>">
             <button class="btn btn-outline-dark" type="submit" name="recherche">Rechercher</button>
         </form>
-        <table class="table table-hover my-2">
+        <table class="table table-hover table-sm my-2">
             <thead>
                 <tr class="bg-dark line">
+                    <th scope="col">Matricule</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Matricule</th>
                     <th scope="col">Rôle</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -109,20 +109,20 @@ $data = $req->fetch();
                             $matSession = $_SESSION['user'];
                         } 
                         while ($row = $lister->fetch(PDO::FETCH_ASSOC)) {
+                            $mat = $row['matricule'];
                             $prenom = $row['prenom'];
                             $nom = $row['nom'];
                             $email = $row['email'];
-                            $mat = $row['matricule'];
                             $role = $row['rôle'];
                             $etat = $row['etat'];
                             $id = $row['id'];
        
                             if ($etat == 0 && $mat != $matSession) {
                                 echo '<tr>
+                                <th scope="row">' . $mat . '</th>
                                 <td>' . $prenom . '</td>
                                 <td>' . $nom . '</td>
                                 <td>' . $email . '</td>
-                                <td>' . $mat . '</td>
                                 <td>' . $role . '</td>
                                 <td style="display:flex;">
                                 <a href=" ../actions/desarchiver.php?deleteid=' . $id . '" onclick="return confirm(\'Voulez vous vraiment désarchiver ?\')"  class="ml-3 text-center">
@@ -152,10 +152,10 @@ $data = $req->fetch();
 
                         if ($mat != $matSession) {
                             echo '<tr>
+                            <th scope="row">' . $mat . '</th>
                             <td>' . $prenom . '</td>
                             <td>' . $nom . '</td>
                             <td>' . $email . '</td>
-                            <td>' . $mat . '</td>
                             <td>' . $role . '</td>
                             <td style="display:flex;">
                                 <a href=" ../actions/desarchiver.php?deleteid=' . $id . '" onclick="return confirm(\'Voulez vous vraiment désarchiver ?\')"  class="ml-3 text-center">

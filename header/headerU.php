@@ -3,7 +3,17 @@
         <div class="infos">
             <div>
                 <div class="profil d-flex justify-center">
-                    <img style="object-fit: cover; width: 100px;height: 100px;" class="img-fluid rounded-circle" src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo']) ?>" alt="">
+                    <?php
+                    if ($_SESSION['photo'] == null) {
+                        ?>
+                        <img class="img-fluid rounded-circle" src="../images/default-avatar.jpg" alt="">
+                        <?php
+                    }else{
+                        ?>
+                        <img style="object-fit: cover; width: 100px;height: 100px;" class="img-fluid rounded-circle" src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo']) ?>" alt="">
+                        <?php
+                    }
+                    ?>
                 </div>
                 <p><?php echo $data['matricule']; ?></p>
             </div>
