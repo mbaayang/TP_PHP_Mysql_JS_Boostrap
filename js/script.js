@@ -60,6 +60,8 @@ document.getElementById("connexion").addEventListener("submit", function(e){
         e.preventDefault();
         document.getElementById("error1").innerHTML = error1;
         return false;
+    }else{
+        document.getElementById("error1").innerHTML = "";
     }
 
 
@@ -70,5 +72,7 @@ document.getElementById("connexion").addEventListener("submit", function(e){
         e.preventDefault();
         document.getElementById("error2").innerHTML = error2;
         return false;
+    }else{
+        document.getElementById("error2").innerHTML = "";
     }
  })

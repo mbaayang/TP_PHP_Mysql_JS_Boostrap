@@ -6,12 +6,12 @@
     // Si les variables existent et qu'elles ne sont pas vides
     if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['rôle']) && !empty($_POST['passwords']) && !empty($_POST['password_retype']))
 {
-        $nom = htmlspecialchars($_POST['nom']);
-        $prenom = htmlspecialchars($_POST['prenom']);
-        $email = htmlspecialchars($_POST['email']);
-        $roles = htmlspecialchars($_POST['rôle']);
-        $passwords = htmlspecialchars($_POST['passwords']);
-        $password_retype = htmlspecialchars($_POST['password_retype']);
+        $nom = strip_tags($_POST['nom']);
+        $prenom = strip_tags($_POST['prenom']);
+        $email = strip_tags($_POST['email']);
+        $roles = strip_tags($_POST['rôle']);
+        $passwords = strip_tags($_POST['passwords']);
+        $password_retype = strip_tags($_POST['password_retype']);
 
         if (!empty($_FILES['photo'])) {
             $photo = file_get_contents($_FILES['photo']['tmp_name']) ?? null;
